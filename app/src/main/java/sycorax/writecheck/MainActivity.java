@@ -8,12 +8,17 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private CanvasView canvasView;
+    Network network;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         canvasView = (CanvasView) findViewById(R.id.canvas);
         textView = (TextView) findViewById(R.id.textView);
+
+        network = new Network();
+
+
     }
 
 
@@ -26,13 +31,25 @@ public class MainActivity extends AppCompatActivity {
         String t = "hi" + i;
         textView.setText(t);
 
+
     }
 
     public void prevCard(View v)
     {
+
         i--;
         String t = "hi" + i;
         textView.setText(t);
+
+        try{
+            network.execute(network.get1);
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
 
     }
 
