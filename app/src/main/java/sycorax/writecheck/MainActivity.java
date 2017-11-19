@@ -28,9 +28,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void prevCard(View v)
+    {
+        i--;
+        String t = "hi" + i;
+        textView.setText(t);
+
+    }
+
     public void flipCard(View v)
     {
-
+        String t = "嗨" + i;
+        textView.setText(t);
     }
 
     public void clearCanvas(View v)

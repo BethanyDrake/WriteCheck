@@ -42,5 +42,33 @@
         android:textSize = "40dp"
         />
 
+    <Button
+        android:id="@+id/button2"
+        android:onClick="flipCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="FLIP" />
+
+    <Button
+        android:id="@+id/button3"
+        android:onClick="nextCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/button2"
+        android:text="NEXT" />
+
+    <Button
+        android:id="@+id/button4"
+        android:onClick="prevCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/button2"
+        android:text="PREV" />
+
 
 </RelativeLayout>
