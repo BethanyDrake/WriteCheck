@@ -1,5 +1,8 @@
 package sycorax.writecheck;
 
+import android.util.Log;
+
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -28,11 +31,12 @@ public class Parser {
 
     public CardSet parseCardSet(String s)
     {
-
-
         StringTokenizer lines = new StringTokenizer(s, "\n");
 
         String title = getLine("title", lines);
+        title = stripQuotes(title);
+
+
         CardSet cardSet = new CardSet(title);
 
         String terms = getLine("terms",lines);
@@ -53,6 +57,8 @@ public class Parser {
 
 
 
+    public String debugText = "";
+
     public ArrayList<String> blockify(String open, String close, String text)
     {
 
@@ -61,42 +67,60 @@ public class Parser {
 
         int depth = 0;
         int currBlock = -1;
-        boolean inblock = false;
+
         while(text.length()>0)
         {
-            if (text.startsWith(open))
+            debugText += "text: " + text+ " depth="+depth + "\n";
+
+
+            int nextOpen = text.indexOf(open);
+            int nextClose = text.indexOf(close);
+
+            if (nextClose == -1 && nextOpen == -1) break;
+            //next bit is an open
+            if (nextClose == -1 || nextOpen != -1 && nextOpen < nextClose)
             {
+                //add the bit we skipped
+                if (currBlock != -1 && nextOpen != 0)
+                {
+                    blocks.set(currBlock, blocks.get(currBlock)+text.substring(0,nextOpen-1));
+                }
+
+                //cut off the open bracket and everything before it
+                text = text.substring(nextOpen+open.length());
+
                 depth++;
-                text.substring(open.length());
                 //if depth is now one, open a new block
                 if (depth ==1)
                 {
-                    currBlock++;
-                    blocks.set(currBlock, "");
-                    inblock = true;
+
+                    blocks.add("");
+                    currBlock = blocks.size()-1;
                     continue;
                 }
 
             }
 
-            if (text.startsWith(close))
+            if (nextOpen== -1 || nextClose != -1 && nextClose < nextOpen)
             {
+                //add the bit we skipped
+                if (currBlock != -1 && nextClose != 0)
+                {
+                    blocks.set(currBlock, blocks.get(currBlock)+text.substring(0,nextClose-1));
+                }
+
+                //cut off the open bracket and everything before it
+                text = text.substring(nextClose+close.length());
+
                 depth--;
-                text.substring(close.length());
-                //if depth is now zero, close that block
+                //if depth is now zero, we're not in any block
                 if (depth == 0)
                 {
-                    inblock = false;
+                    currBlock = -1;
                     continue;
                 }
-            }
 
-            if (inblock)
-            {
-                blocks.set(currBlock, blocks.get(currBlock) +text.substring(0,1));
-                text = text.substring(1);
             }
-
 
         }
 
@@ -104,15 +128,18 @@ public class Parser {
     }
 
 
-    private String getLine(String label, StringTokenizer lines)
+
+
+    public String getLine(String label, StringTokenizer lines)
     {
         String line;
         while (lines.hasMoreTokens())
         {
             line = lines.nextToken();
+            debugText += line + "\n";
             String[] parts = line.split(":",2);
             if (parts.length<2) continue;
-            if (parts[0].equals("\""+label+"\""))
+            if (parts[0].endsWith("\""+label+"\""))
             {
 
                 if (parts[1].contains("["))
@@ -126,12 +153,12 @@ public class Parser {
                     }
                     return multiline;
                 }
-                return parts[1]; //don't want the space or the comma
+                return parts[1];
             }
 
         }
 
-        return "";
+        return "not found";
     }
 
 

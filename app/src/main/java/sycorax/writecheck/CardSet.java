@@ -15,6 +15,7 @@ public class CardSet {
     public CardSet(String title)
     {
         this.title = title;
+        cards = new ArrayList<>();
     }
 
 
