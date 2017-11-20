@@ -11,7 +11,7 @@ import android.view.View;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
-public class SelectSetActivity extends AppCompatActivity {
+public class SelectSetActivity extends AppCompatActivity implements NetworkListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +23,32 @@ public class SelectSetActivity extends AppCompatActivity {
 
     public void onButton(View v)
     {
+        try{
+            Network network = new Network();
+            network.execute(network.setURL(213978524));
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+    public void viewCards()
+    {
+
         Log.d("buttton","down");
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
     }
 
+
+    @Override
+    public void onPostExecute(String result) {
+        //convert the fetched data into something useful
+    }
 }

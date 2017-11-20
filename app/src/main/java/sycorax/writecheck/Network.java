@@ -21,6 +21,7 @@ public class Network extends AsyncTask<String, Void, String>{
     public String authorizeUrl = "https://quizlet.com/authorize?client_id=EmuvkFpAYY&response_type=code&scope=read%20write_set";
     public String tokenUrl = "https://api.quizlet.com/oauth/token";
     public String get1 = "https://api.quizlet.com/2.0/sets/415?client_id=EmuvkFpAYY&whitespace=1";
+    public NetworkListener networkListener = null;
 
 
     public String setURL(int setID)
@@ -62,5 +63,15 @@ public class Network extends AsyncTask<String, Void, String>{
 
         Log.d("network", "finished");
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(String result)
+    {
+        if (networkListener != null)
+        {
+            networkListener.onPostExecute(result);
+        }
+
     }
 }

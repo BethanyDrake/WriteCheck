@@ -8,13 +8,36 @@ import java.util.ArrayList;
 
 public class CardSet {
 
+    public String title;
+    ArrayList<Card> cards;
+
+
+    public CardSet(String title)
+    {
+        this.title = title;
+    }
+
+
+    public void addCard(String front, String back)
+    {
+        Card card = new Card(front, back);
+        cards.add(card);
+
+    }
+
     class Card{
         String front;
         String back;
         int strength;
+        public Card(String front, String back)
+        {
+            this.front=front;
+            this.back = back;
+            strength = 0;
+        }
     }
 
-    ArrayList<Card> cards;
+
 
 
     public void updateStrength(Card card, int strength)

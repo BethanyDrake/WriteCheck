@@ -30,15 +30,7 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(t);
 
 
-        try{
-            Network network = new Network();
-            network.execute(network.setURL(213978524));
-        }
 
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
 
     }
 
