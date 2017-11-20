@@ -8,15 +8,13 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private CanvasView canvasView;
-    Network network;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         canvasView = (CanvasView) findViewById(R.id.canvas);
         textView = (TextView) findViewById(R.id.textView);
-
-        network = new Network();
 
 
     }
@@ -32,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(t);
 
 
+        try{
+            Network network = new Network();
+            network.execute(network.setURL(213978524));
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     public void prevCard(View v)
@@ -42,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(t);
 
         try{
+            Network network = new Network();
             network.execute(network.get1);
         }
 

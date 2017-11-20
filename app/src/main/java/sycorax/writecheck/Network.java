@@ -23,6 +23,16 @@ public class Network extends AsyncTask<String, Void, String>{
     public String get1 = "https://api.quizlet.com/2.0/sets/415?client_id=EmuvkFpAYY&whitespace=1";
 
 
+    public String setURL(int setID)
+    {
+        String s = "https://api.quizlet.com/2.0/sets/";
+        s = s + setID;
+        s = s + "?client_id=EmuvkFpAYY&whitespace=1";
+        return s;
+
+    }
+
+
 
 
     public Network() {
@@ -33,21 +43,24 @@ public class Network extends AsyncTask<String, Void, String>{
     @Override
     protected String doInBackground(String... urls) {
         try {
+            Log.d("network", "started");
             URL url = new URL(urls[0]);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            Log.d("network", "connected");
             InputStream is = urlConnection.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader bf = new BufferedReader(isr);
             String line;
             while((line = bf.readLine()) != null)
             {
-                Log.d("network", line);
+                Log.d("output", line);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        Log.d("network", "finished");
         return null;
     }
 }
