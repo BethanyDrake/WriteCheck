@@ -1,5 +1,6 @@
 package sycorax.writecheck;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,9 @@ public class MainActivity extends AppCompatActivity {
 
     private CanvasView canvasView;
 
+    CardSet cardSet;
+    CardSet.Card currCard;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,17 +20,24 @@ public class MainActivity extends AppCompatActivity {
         canvasView = (CanvasView) findViewById(R.id.canvas);
         textView = (TextView) findViewById(R.id.textView);
 
+        //convert the fetched data into something useful
+        Parser p = new Parser();
+
+        String cardSetString = getIntent().getStringExtra("cardSetString");
+        cardSet = p.parseCardSet(cardSetString);
+        nextCard(null);
 
     }
 
 
 
     TextView textView;
-    int i = 0;
+
     public void nextCard(View v)
     {
-        i++;
-        String t = "hi" + i;
+
+        currCard= cardSet.getNext();
+        String t = currCard.front;
         textView.setText(t);
 
 
@@ -37,26 +48,17 @@ public class MainActivity extends AppCompatActivity {
     public void prevCard(View v)
     {
 
-        i--;
-        String t = "hi" + i;
+        currCard= cardSet.getPrev();
+        String t = currCard.front;
         textView.setText(t);
 
-        try{
-            Network network = new Network();
-            network.execute(network.get1);
-        }
-
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
 
 
     }
 
     public void flipCard(View v)
     {
-        String t = "嗨" + i;
+        String t = currCard.back;
         textView.setText(t);
     }
 

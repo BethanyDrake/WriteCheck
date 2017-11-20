@@ -43,6 +43,7 @@ public class Network extends AsyncTask<String, Void, String>{
 
     @Override
     protected String doInBackground(String... urls) {
+        String result = "";
         try {
             Log.d("network", "started");
             URL url = new URL(urls[0]);
@@ -55,6 +56,7 @@ public class Network extends AsyncTask<String, Void, String>{
             while((line = bf.readLine()) != null)
             {
                 Log.d("output", line);
+                result += line+ "\n";
             }
 
         } catch (IOException e) {
@@ -62,7 +64,7 @@ public class Network extends AsyncTask<String, Void, String>{
         }
 
         Log.d("network", "finished");
-        return null;
+        return result;
     }
 
     @Override

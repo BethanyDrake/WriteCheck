@@ -17,6 +17,19 @@ import static org.junit.Assert.*;
  * Created by Bethany on 20/11/2017.
  */
 public class ParserTest {
+
+
+    @Test
+    public void getUnicode() throws Exception {
+        Parser p = new Parser();
+        String res = p.getUnicode("\\u006C");
+        if (! res.equals("l"))
+        {
+            fail(res);
+        }
+
+    }
+
     @Test
     public void getLine() throws Exception {
 
@@ -68,6 +81,8 @@ public class ParserTest {
         CardSet cardSet = p.parseCardSet(getTestString());
         if (!cardSet.title.equals("french animals 3.0")) fail("title: " +cardSet.title);
         if (cardSet.cards.size() != 3) fail("numcards: " + cardSet.cards.size() );
+
+
 
     }
 

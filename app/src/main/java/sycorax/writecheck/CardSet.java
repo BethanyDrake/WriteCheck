@@ -1,5 +1,8 @@
 package sycorax.writecheck;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
@@ -68,13 +71,23 @@ public class CardSet {
 
     public Card getNext()
     {
-        return null;
+        Card card = cards.get(0);
+        moveToBack(card);
+        return card;
+
     }
 
     public Card getPrev()
     {
-        return null;
+        Card card = cards.get(cards.size()-1);
+        moveToPos(card, 0);
+        return card;
+
     }
+
+
+
+
 
 
 }

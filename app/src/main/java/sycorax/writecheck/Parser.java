@@ -45,8 +45,8 @@ public class Parser {
         for(String termBlock : splitTerms)
         {
             StringTokenizer termLines = new StringTokenizer(termBlock, "\n");
-            String front = getLine("term", termLines);
-            String back = getLine("definition",termLines);
+            String front = getUnicode(stripQuotes(getLine("term", termLines)));
+            String back = getUnicode(stripQuotes(getLine("definition",termLines)));
 
             cardSet.addCard(front, back);
 
@@ -130,6 +130,32 @@ public class Parser {
 
 
 
+    public String getUnicode(String string)
+    {
+
+        while(string.contains("\\u"))
+        {
+            int i = string.indexOf("\\u");
+            try
+            {
+                String numString = string.substring(i+2,i+6);
+                int num = Integer.parseInt(numString,16);
+                debugText += "num: " + num + "\n";
+                char c = (char) num;
+
+                string = string.substring(0,i) + c + string.substring(i+6);
+
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        return string;
+
+    }
+
     public String getLine(String label, StringTokenizer lines)
     {
         String line;
@@ -149,7 +175,7 @@ public class Parser {
                     {
                         line = lines.nextToken();
                         if (line.contains("]")) break;
-                        multiline += line;
+                        multiline += line + "\n";
                     }
                     return multiline;
                 }

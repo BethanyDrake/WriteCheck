@@ -2,6 +2,7 @@ package sycorax.writecheck;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ public class SelectSetActivity extends AppCompatActivity implements NetworkListe
     {
         try{
             Network network = new Network();
+            network.networkListener = this;
             network.execute(network.setURL(213978524));
         }
 
@@ -37,11 +39,12 @@ public class SelectSetActivity extends AppCompatActivity implements NetworkListe
 
 
 
-    public void viewCards()
+    public void viewCards(String cardSetSring)
     {
 
-        Log.d("buttton","down");
+
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("cardSetString", cardSetSring);
         startActivity(intent);
 
     }
@@ -49,6 +52,24 @@ public class SelectSetActivity extends AppCompatActivity implements NetworkListe
 
     @Override
     public void onPostExecute(String result) {
-        //convert the fetched data into something useful
+
+        Log.d("select", "finished network");
+        viewCards(result);
+
+        //Log.d("select", "parsing network");
+
+        /*
+        Log.d("select", "title: " + cardSet.title);
+
+        for (CardSet.Card card : cardSet.cards)
+        {
+            Log.d("select", card.front + ", " + card.back);
+        }
+
+
+        Log.d("select" , p.debugText);
+        */
+
+
     }
 }
