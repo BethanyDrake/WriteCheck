@@ -19,7 +19,7 @@ public class Parser {
     }
 
 
-    private String stripQuotes(String s)
+    public String stripQuotes(String s)
     {
 
         int start = s.indexOf("\"");
@@ -28,33 +28,6 @@ public class Parser {
         if (end == -1) return s;
         return s.substring(start+1, end);
     }
-
-    public CardSet parseCardSet(String s)
-    {
-        StringTokenizer lines = new StringTokenizer(s, "\n");
-
-        String title = getLine("title", lines);
-        title = stripQuotes(title);
-
-
-        CardSet cardSet = new CardSet(title);
-
-        String terms = getLine("terms",lines);
-        ArrayList<String> splitTerms = blockify("{","}",terms);
-
-        for(String termBlock : splitTerms)
-        {
-            StringTokenizer termLines = new StringTokenizer(termBlock, "\n");
-            String front = getUnicode(stripQuotes(getLine("term", termLines)));
-            String back = getUnicode(stripQuotes(getLine("definition",termLines)));
-
-            cardSet.addCard(front, back);
-
-        }
-
-        return cardSet;
-    }
-
 
 
     public String debugText = "";

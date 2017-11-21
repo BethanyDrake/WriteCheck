@@ -21,6 +21,7 @@ public class Network extends AsyncTask<String, Void, String>{
     public String authorizeUrl = "https://quizlet.com/authorize?client_id=EmuvkFpAYY&response_type=code&scope=read%20write_set";
     public String tokenUrl = "https://api.quizlet.com/oauth/token";
     public String get1 = "https://api.quizlet.com/2.0/sets/415?client_id=EmuvkFpAYY&whitespace=1";
+    public String base = "https://api.quizlet.com";
     public NetworkListener networkListener = null;
 
 
@@ -32,6 +33,27 @@ public class Network extends AsyncTask<String, Void, String>{
         return s;
 
     }
+
+
+    public String searchQueryURL(String query, String username)
+    {
+        String url = base +"/2.0/search/sets?";
+        if (query != null)
+        {
+            url += "q=" + query;
+        }
+
+        if (username != null)
+        {
+            url += "creator=" + username;
+        }
+
+        return url;
+
+    }
+
+
+
 
 
 

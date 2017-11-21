@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView);
 
         //convert the fetched data into something useful
-        Parser p = new Parser();
+        CardSetParser p = new CardSetParser();
 
         String cardSetString = getIntent().getStringExtra("cardSetString");
         cardSet = p.parseCardSet(cardSetString);
