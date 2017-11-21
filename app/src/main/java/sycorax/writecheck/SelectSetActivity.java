@@ -1,5 +1,6 @@
 package sycorax.writecheck;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,6 +35,9 @@ public class SelectSetActivity extends AppCompatActivity implements NetworkListe
         Button button = (Button) findViewById(R.id.search_button);
         button.setText("Searching");
         button.setEnabled(false);
+        
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
         //get the search feilds
         String query = ((TextView) findViewById(R.id.query_input)).getText().toString();

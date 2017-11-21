@@ -47,8 +47,9 @@ public class Network extends AsyncTask<String, Void, String>{
 
 
         String url = base +"/2.0/search/sets?" + standard;
+        url += "&per_page=" + 5;
         url += "&page=" + page;
-        url += "&per_page" + 5;
+
 
         if (query != null && !query.equals(""))
         {
