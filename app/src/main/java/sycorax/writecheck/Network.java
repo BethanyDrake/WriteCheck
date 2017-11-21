@@ -22,6 +22,8 @@ public class Network extends AsyncTask<String, Void, String>{
     public String tokenUrl = "https://api.quizlet.com/oauth/token";
     public String get1 = "https://api.quizlet.com/2.0/sets/415?client_id=EmuvkFpAYY&whitespace=1";
     public String base = "https://api.quizlet.com";
+
+    public String standard = "client_id=EmuvkFpAYY&whitespace=1";
     public NetworkListener networkListener = null;
 
 
@@ -34,21 +36,34 @@ public class Network extends AsyncTask<String, Void, String>{
 
     }
 
-
-    public String searchQueryURL(String query, String username)
+    public void displaySearchResult(String results)
     {
-        String url = base +"/2.0/search/sets?";
-        if (query != null)
+
+    }
+
+
+    public String searchQueryURL(String query, String username, int page)
+    {
+
+
+        String url = base +"/2.0/search/sets?" + standard;
+        url += "&page=" + page;
+        url += "&per_page" + 5;
+
+        if (query != null && !query.equals(""))
         {
-            url += "q=" + query;
+            url += "&q=" + query;
         }
 
-        if (username != null)
+        if (username != null && !username.equals(""))
         {
-            url += "creator=" + username;
+            url += "&creator=" + username;
         }
 
-        return url;
+
+        //String url = "https://api.quizlet.com/2.0/search/sets?q=french%20animals&client_id=EmuvkFpAYY&whitespace=1";
+       // return setURL(6009523);
+       return url;
 
     }
 

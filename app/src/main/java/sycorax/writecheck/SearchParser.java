@@ -1,5 +1,7 @@
 package sycorax.writecheck;
 
+import android.widget.Button;
+
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -18,25 +20,28 @@ public class SearchParser extends Parser {
         int id;
     }
 
-    public ArrayList<Result> parseSearchResult(String s, int max)
+    public ArrayList<Result> parseSearchResult(String s)
     {
         StringTokenizer lines = new StringTokenizer(s, "\n");
 
-        String title = getLine("title", lines);
-        title = stripQuotes(title);
+        String setsString = getLine("sets", lines);
+        ArrayList<String> sets = blockify("{","}",setsString);
 
-
-        CardSet cardSet = new CardSet(title);
-
-        String terms = getLine("terms",lines);
-        ArrayList<String> splitTerms = blockify("{","}",terms);
-
-        for(String termBlock : splitTerms)
+        ArrayList<Result> results = new ArrayList<>();
+        for(String setString : sets)
         {
+            Result result = new Result();
+            result.creator = stripQuotes(getLine("created_by", setString));
+            result.title = stripQuotes(getLine("title", setString));
+            result.numCards = Integer.parseInt(stripNonNum(getLine("term_count", setString)));
+            result.id = Integer.parseInt(stripNonNum(getLine("id", setString)));
 
+            results.add(result);
 
         }
 
-        return null;
+        return results;
     }
+
+
 }

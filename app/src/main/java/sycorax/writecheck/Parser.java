@@ -6,6 +6,8 @@ import java.io.Console;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import static android.media.CamcorderProfile.get;
+
 /**
  * Created by Bethany on 20/11/2017.
  */
@@ -129,6 +131,31 @@ public class Parser {
 
     }
 
+    public String stripNonNum(String numString) {
+
+        String nums = "0123456789";
+        String strippedString = numString + "";
+
+        for (char c : numString.toCharArray())
+        {
+            int index;
+            if (!nums.contains(c+"") &&(index = strippedString.indexOf(c)) != -1)
+            {
+                strippedString = strippedString.substring(0,index) + strippedString.substring(index+1);
+            }
+        }
+        return strippedString;
+
+
+    }
+
+
+    public String getLine(String label, String lines)
+    {
+        StringTokenizer st = new StringTokenizer(lines, "\n");
+        return getLine(label, st);
+    }
+
     public String getLine(String label, StringTokenizer lines)
     {
         String line;
@@ -144,12 +171,20 @@ public class Parser {
                 if (parts[1].contains("["))
                 {
                     String multiline = "";
+                    String tail = line+"\n";
                     while(lines.hasMoreTokens())
                     {
                         line = lines.nextToken();
-                        if (line.contains("]")) break;
-                        multiline += line + "\n";
+                        tail+=line +"\n";
+                       // if (line.contains("]")) break;
+                       // multiline += line + "\n";
                     }
+
+                    multiline= blockify("[", "]",tail).get(0);
+
+
+
+
                     return multiline;
                 }
                 return parts[1];

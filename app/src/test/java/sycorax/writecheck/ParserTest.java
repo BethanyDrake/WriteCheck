@@ -17,6 +17,26 @@ import static org.junit.Assert.*;
  * Created by Bethany on 20/11/2017.
  */
 public class ParserTest {
+    @Test
+    public void stripQuotes() throws Exception {
+
+
+
+    }
+
+    @Test
+    public void stripNonNum() throws Exception {
+        Parser p = new Parser();
+        String input = " 777, ";
+        String result = p.stripNonNum(input);
+        String expected = "777";
+        if (!result.equals(expected))
+        {
+            fail("res: " + result + " exp: "+ expected);
+        }
+
+
+    }
 
 
     @Test
@@ -77,7 +97,7 @@ public class ParserTest {
 
     @Test
     public void parseCardSet() throws Exception {
-        Parser p = new Parser();
+        CardSetParser p = new CardSetParser();
         CardSet cardSet = p.parseCardSet(getTestString());
         if (!cardSet.title.equals("french animals 3.0")) fail("title: " +cardSet.title);
         if (cardSet.cards.size() != 3) fail("numcards: " + cardSet.cards.size() );

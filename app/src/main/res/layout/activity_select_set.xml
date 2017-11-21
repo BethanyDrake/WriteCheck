@@ -6,45 +6,67 @@
     android:layout_height="match_parent"
     tools:context="sycorax.writecheck.SelectSetActivity">
 
-    <Button
-        android:id="@+id/button5"
-        android:onClick="onButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GET CARDS"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/query_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="key words"
         android:text=""
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignBottom="@+id/author_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="43dp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/author_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editText"
-        android:layout_below="@+id/editText"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="97dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
         android:hint="author name"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/query_input" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/search_button"
+        android:onClick="search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/button5"
-        android:layout_below="@+id/editText2"
-        android:text="SEARCH" />
+        android:text="SEARCH"
+        android:layout_below="@+id/query_input"
+        android:layout_centerHorizontal="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/search_button">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/linear_layout"
+            android:layout_marginLeft = "20dp"
+            android:layout_marginRight = "20dp"
+
+            >
+
+
+            <Button
+                android:id="@+id/button19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="This is a title (13 cards)\nby Username"
+                android:gravity="left"
+
+
+
+
+                />
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
