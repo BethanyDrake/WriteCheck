@@ -35,9 +35,14 @@ public class SelectSetActivity extends AppCompatActivity implements NetworkListe
         Button button = (Button) findViewById(R.id.search_button);
         button.setText("Searching");
         button.setEnabled(false);
-        
+
+        //hide keyboard
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+        //remove any results from the last search
+        LinearLayout layout = (LinearLayout) findViewById(R.id.linear_layout);
+        layout.removeAllViewsInLayout();
 
         //get the search feilds
         String query = ((TextView) findViewById(R.id.query_input)).getText().toString();
@@ -67,6 +72,11 @@ public class SelectSetActivity extends AppCompatActivity implements NetworkListe
         {
             addResultButton(item);
         }
+
+        //allow user to search again
+        Button button = (Button) findViewById(R.id.search_button);
+        button.setText("SEARCH");
+        button.setEnabled(true);
 
     }
 

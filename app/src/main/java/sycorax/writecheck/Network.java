@@ -59,6 +59,7 @@ public class Network extends AsyncTask<String, Void, String>{
         if (username != null && !username.equals(""))
         {
             url += "&creator=" + username;
+
         }
 
 
@@ -83,7 +84,7 @@ public class Network extends AsyncTask<String, Void, String>{
     protected String doInBackground(String... urls) {
         String result = "";
         try {
-            Log.d("network", "started");
+            Log.d("network", "started: "+ urls[0]);
             URL url = new URL(urls[0]);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             Log.d("network", "connected");
