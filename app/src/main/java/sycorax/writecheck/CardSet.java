@@ -29,21 +29,6 @@ public class CardSet {
 
     }
 
-    class Card{
-        String front;
-        String back;
-        int strength;
-        public Card(String front, String back)
-        {
-            this.front=front;
-            this.back = back;
-            strength = 0;
-        }
-    }
-
-
-
-
     public void updateStrength(Card card, int strength)
     {
 

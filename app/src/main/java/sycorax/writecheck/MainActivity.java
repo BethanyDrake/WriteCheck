@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     private CanvasView canvasView;
 
     CardSet cardSet;
-    CardSet.Card currCard;
+    Card currCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +36,18 @@ public class MainActivity extends AppCompatActivity {
     public void nextCard(View v)
     {
 
+        if (currCard!= null)
+        {
+            currCard.updateStrength(1f,System.currentTimeMillis());
+        }
+
+
         currCard= cardSet.getNext();
         String t = currCard.front;
+        textView.setBackgroundColor(currCard.getColor(System.currentTimeMillis()));
         textView.setText(t);
         flipped = false;
+
 
     }
 
