@@ -87,14 +87,41 @@ public class SelectSetActivity extends AppCompatActivity implements NetworkListe
     {
         LinearLayout layout = (LinearLayout) findViewById(R.id.linear_layout);
 
-
+        final int itemID = item.id;
         Button b = new Button(this);
         Log.d("select", "adding button: " + item.title);
         b.setText(item.title + "    ("+ item.numCards + "\n" + item.creator);
-        b.setId(item.id);
+        b.setOnClickListener(new View.OnClickListener(){
+
+            public void onClick(View v)
+            {
+                clickedSearchItem(itemID);
+            }
+        });
         layout.addView(b);
     }
 
+
+
+
+    public void clickedSearchItem(int setID)
+    {
+        try{
+            Network network = new Network();
+            network.networkListener = new NetworkListener() {
+                @Override
+                public void onPostExecute(String result) {
+                    viewCards(result);
+                }
+            };
+            network.execute(network.setURL(setID));
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 
     public void onButton(View v)
@@ -120,7 +147,7 @@ public class SelectSetActivity extends AppCompatActivity implements NetworkListe
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("cardSetString", cardSetSring);
-        startActivity(intent);
+        startActivity(intent); 
 
     }
 

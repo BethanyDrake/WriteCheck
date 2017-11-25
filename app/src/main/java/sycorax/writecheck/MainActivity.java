@@ -39,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
         currCard= cardSet.getNext();
         String t = currCard.front;
         textView.setText(t);
-
-
-
+        flipped = false;
 
     }
 
@@ -51,20 +49,46 @@ public class MainActivity extends AppCompatActivity {
         currCard= cardSet.getPrev();
         String t = currCard.front;
         textView.setText(t);
-
+        flipped = false;
 
 
     }
 
+
+    public boolean flipped;
     public void flipCard(View v)
     {
-        String t = currCard.back;
-        textView.setText(t);
+        flipped = !flipped;
+        if (flipped)
+        {
+            String t = currCard.back;
+            textView.setText(t);
+        }
+
+        else
+        {
+            String t = currCard.front;
+            textView.setText(t);
+
+        }
+
     }
 
     public void clearCanvas(View v)
     {
         canvasView.clearCanvas();
-        nextCard(v);
+
     }
+
+    public void back(View v)
+    {
+        Intent intent = new Intent(this, SelectSetActivity.class);
+        startActivity(intent);
+    }
+
+    public void openSettings(View v)
+    {
+        //TODO implement settings menu
+    }
+
 }
