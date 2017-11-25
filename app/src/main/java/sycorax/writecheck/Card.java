@@ -3,6 +3,9 @@ package sycorax.writecheck;
 import android.graphics.Color;
 import android.graphics.ColorSpace;
 import android.os.SystemClock;
+import android.util.Log;
+
+import java.util.Random;
 
 import static android.R.attr.max;
 import static android.graphics.Color.argb;
@@ -38,17 +41,23 @@ class Card{
      */
     public void updateStrength(float confidence, long timeViewed)
     {
-        if (confidence >= 0.5 && (timeLastViewed - timeViewed) > timeToForget )
+        long timeSinceViewed = (timeViewed - timeLastViewed);
+
+        Log.d("color", "time last viewed: " + timeLastViewed +
+                ", timeviewed: " + timeViewed + ", diff: "+ timeSinceViewed/1000);
+
+
+        if (confidence >= 0.5 && timeSinceViewed > timeToForget )
         {
-            strength =  Math.max(strength+0.1f, 1);
-            timeToForget = Math.max(timeLastViewed - timeViewed, 2* timeToForget);
+            strength =  Math.min(strength+0.1f, 1);
+            timeToForget = Math.max(timeSinceViewed, 2* timeToForget);
 
         }
 
 
-        else
+        else if (confidence <0.5)
         {
-            strength = Math.min(strength-0.1f, 0);
+            strength = Math.max(strength-0.1f, 0);
             timeToForget = timeToForget/2;
         }
 
@@ -56,29 +65,37 @@ class Card{
     }
 
 
+    public void setRandomStrength()
+    {
+        this.strength = (System.currentTimeMillis()%11)*0.1f;
+    }
+
     public int getColor(long timeViewed)
     {
         if ((timeLastViewed - timeViewed) > timeToForget)
         {
-            return (calcColor(strength - 0.5f));
+            Log.d("color", "no time to forget");
+            return (calcColor(strength-0.5f));
         }
         return calcColor(strength);
     }
 
     private int calcColor(float strength) {
 
+        Log.d("color", "getting color, strength="+strength);
         int green = 200;
         int red = 200;
         int blue = 255;
         if (strength < 0)
         {
+
             return (new Color()).argb(255, red,green,blue);
         }
 
-        int bonus = (int)strength * 200;
+        int bonus = (int)(strength * 200);
         red = red-bonus;
         blue = blue - bonus;
-
+        Log.d("color", "r="+red+" g="+green+ " b="+blue);
         return (new Color()).argb(255, red,green,blue);
 
 

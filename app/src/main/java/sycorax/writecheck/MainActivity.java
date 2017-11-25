@@ -3,6 +3,7 @@ package sycorax.writecheck;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -43,8 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         currCard= cardSet.getNext();
+        currCard.setRandomStrength();
         String t = currCard.front;
-        textView.setBackgroundColor(currCard.getColor(System.currentTimeMillis()));
+        int color = currCard.getColor(System.currentTimeMillis());
+        Log.d("color", "strength: "+currCard.strength + " timetoforget: " + currCard.timeToForget/1000);
+        textView.setBackgroundColor(color);
         textView.setText(t);
         flipped = false;
 

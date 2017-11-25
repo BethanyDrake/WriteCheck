@@ -29,10 +29,7 @@ public class CardSet {
 
     }
 
-    public void updateStrength(Card card, int strength)
-    {
 
-    }
 
     private void moveToBack(Card card)
     {
