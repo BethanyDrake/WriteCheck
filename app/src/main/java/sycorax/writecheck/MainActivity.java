@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         String t = currCard.front;
         int color = currCard.getColor(System.currentTimeMillis());
         Log.d("color", "strength: "+currCard.strength + " timetoforget: " + currCard.timeToForget/1000);
-        textView.setBackgroundColor(color);
+        //textView.setBackgroundColor(color);
+        canvasView.setBackgroundColor(color);
         textView.setText(t);
         flipped = false;
 
